@@ -1,5 +1,5 @@
 {
-	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/VM_IP.json",
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"vmName": {
@@ -46,8 +46,26 @@
 		"subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]",
 		"nicName": "[concat(parameters('vmName'), '-nic')]",
 		"publicIPAddressName": "[concat(parameters('vmName'), '-IP')]"
+        "templatelink":"[concat('https://raw.githubusercontent.com/wangjj1989/my-azure-templates/master/',parameters('newOrExisting'),'StorageAccount.json')]"
 	},
 	"resources": [
+    {
+        "apiVersion": "2015-06-15",
+        "name": "nestedTemplate",
+        "type": "Microsoft.Resources/deployments",
+        "properties": {
+            "mode": "incremental",
+            "templateLink": {
+                "uri": "[variables('templatelink')]",
+                "contentVersion": "1.0.0.0"
+            },
+            "parameters": {
+            "StorageAccountName": {
+                "value": "[parameters('storageAccountName')]"
+            }
+            }
+        }
+    },
 	{
 		"apiVersion": "2015-06-15",
 		"type": "Microsoft.Network/publicIPAddresses",
@@ -137,5 +155,11 @@
 			}
 		}
 	}
-	]
+	],
+    "outputs": {
+        "exampleOutput": {
+            "value": "[reference('nestedTemplate')]",
+            "type": "object"
+        }
+    }
 }
