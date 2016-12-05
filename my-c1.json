@@ -27,10 +27,16 @@
 				"description": "Size of the VM"
 			}
 		}
+        "storageAccountname": {
+            "type": "String",
+            "allowedValues": [
+                "new",
+                "existing"
+            ]
+        }
 	},
 	"variables": {
 		"apiVersion": "2015-06-15",
-		"storageAccountName": "wangj85stg",
 		"virtualNetworkName": "rg-test-vnet",
 		"osDiskName": "[concat(parameters('vmName'), '-', uniquestring(parameters('vmName')), '-root')]",
 		"nvramDiskName": "[concat(parameters('vmName'), '-', uniquestring(parameters('vmName')), '-nvram')]",
@@ -97,7 +103,7 @@
 						"uri": "https://wangj85stg.blob.core.windows.net/system/Microsoft.Compute/Images/ddve-c1/DDVE-C1-osDisk.0959152a-cb1b-4e06-9c34-f779ba70d94c.vhd"
 					},
 					"vhd": {
-						"uri": "[concat('https://', variables('storageAccountName'), '.blob.core.windows.net/', variables('vmStorageAccountContainerName'), '/', variables('osDiskName'), '.vhd')]"
+						"uri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/', variables('vmStorageAccountContainerName'), '/', variables('osDiskName'), '.vhd')]"
 					},
 					"caching": "ReadWrite"
 				},
@@ -110,7 +116,7 @@
 						"uri": "https://wangj85stg.blob.core.windows.net/system/Microsoft.Compute/Images/ddve-c1/DDVE-C1-dataDisk-0.0959152a-cb1b-4e06-9c34-f779ba70d94c.vhd"
 					},
 					"vhd": {
-						"uri": "[concat('https://', variables('storageAccountName'), '.blob.core.windows.net/', variables('vmStorageAccountContainerName'), '/', variables('nvramDiskName'), '.vhd')]"
+						"uri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/', variables('vmStorageAccountContainerName'), '/', variables('nvramDiskName'), '.vhd')]"
 					},
 					"caching": "None"
 				}
