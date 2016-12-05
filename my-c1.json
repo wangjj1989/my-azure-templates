@@ -27,7 +27,7 @@
 				"description": "Size of the VM"
 			}
 		},
-        "storageAccountname": {
+        "newOrExisting": {
             "type": "String",
             "allowedValues": [
                 "new",
@@ -45,7 +45,7 @@
 		"vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
 		"subnetRef": "[concat(variables('vnetID'),'/subnets/', variables('subnetName'))]",
 		"nicName": "[concat(parameters('vmName'), '-nic')]",
-		"publicIPAddressName": "[concat(parameters('vmName'), '-IP')]"
+		"publicIPAddressName": "[concat(parameters('vmName'), '-IP')]",
         "templatelink":"[concat('https://raw.githubusercontent.com/wangjj1989/my-azure-templates/master/',parameters('newOrExisting'),'StorageAccount.json')]"
 	},
 	"resources": [
