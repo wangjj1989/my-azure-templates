@@ -9,12 +9,12 @@
                 "type": "String",
                 "allowedValues": [
                     "new",
-                "existing"
-                    ]
+                    "existing"
+                ]
             }
         },
         "variables": {
-            "templatelink": "[concat('https://raw.githubusercontent.com/rjmax/ArmExamples/master/',parameters('newOrExisting'),'StorageAccount.json')]"
+            "templatelink": "[concat('https://raw.githubusercontent.com/wangjj1989/my-azure-templates/master/',parameters('newOrExisting'),'StorageAccount.json')]"
         },
         "resources": [
         {
